@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100d11">
+<meta name="description" content="Teddy Draw — a cozy little space to sketch, doodle and create. Download the Android demo.">
+<title>Teddy Draw — Make Something Lovely</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#100d11;--panel:#19151b;--panel2:#211a22;--pink:#d9a0b8;
+  --pink2:#edc4d5;--ink:#f8eff3;--muted:#a99ca5;--line:rgba(235,190,210,.13);
+  --soft:#8f6479;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{min-height:100vh;background:var(--bg);color:var(--ink);font-family:"DM Sans",sans-serif;overflow-x:hidden}
+body:before{content:"";position:fixed;z-index:-1;inset:0;background:
+ radial-gradient(ellipse at 50% 8%,rgba(133,76,105,.19),transparent 36%),
+ radial-gradient(ellipse at 8% 85%,rgba(91,54,76,.12),transparent 30%),
+ radial-gradient(ellipse at 95% 65%,rgba(113,69,94,.10),transparent 28%)}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.site-header{width:min(1120px,calc(100% - 48px));margin:auto;height:86px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:2}
+.brand{display:flex;align-items:center;gap:12px;font-family:Manrope,sans-serif;font-weight:800;letter-spacing:-.5px;font-size:17px}
+.brand-mark{width:38px;height:38px;border:1px solid var(--line);border-radius:13px;background:linear-gradient(145deg,#392735,#211921);display:grid;place-items:center;color:var(--pink2)}
+.brand-mark svg{width:21px;height:21px}
+.header-note{font-size:11px;letter-spacing:1.7px;text-transform:uppercase;color:#c89aaf;display:flex;align-items:center;gap:9px}
+.header-note:before{content:"";width:6px;height:6px;border-radius:50%;background:#c89aaf;box-shadow:0 0 12px #c89aaf}
+main{width:min(1120px,calc(100% - 48px));margin:auto;min-height:calc(100vh - 155px);display:grid;grid-template-columns:1.03fr .97fr;align-items:center;gap:46px;padding:34px 0 65px}
+.copy{position:relative;z-index:1;animation:rise .85s cubic-bezier(.2,.7,.2,1) both}
+.kicker{display:inline-flex;align-items:center;gap:9px;color:var(--pink);font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:23px}
+.kicker svg{width:15px;height:15px}
+h1{font-family:"Playfair Display",serif;font-size:clamp(48px,6.3vw,76px);font-weight:600;letter-spacing:-2.5px;line-height:1.04;margin-bottom:22px}
+h1 em{font-style:normal;color:var(--pink)}
+.intro{max-width:420px;color:var(--muted);font-size:14px;line-height:1.9}
+.download-panel{margin-top:35px;max-width:420px;padding:18px;background:linear-gradient(145deg,rgba(39,29,39,.96),rgba(25,20,27,.96));border:1px solid var(--line);border-radius:20px;box-shadow:0 22px 65px rgba(0,0,0,.24);transition:transform .3s,border-color .3s}
+.download-panel:hover{transform:translateY(-3px);border-color:rgba(217,160,184,.3)}
+.app-row{display:flex;align-items:center;gap:13px;margin-bottom:17px}
+.app-icon{width:48px;height:48px;flex:none;border-radius:15px;background:linear-gradient(145deg,#604052,#332432);display:grid;place-items:center;border:1px solid rgba(255,255,255,.08)}
+.app-icon svg{width:25px;height:25px;color:#f0c5d7}
+.app-meta{min-width:0;flex:1}
+.app-meta strong{display:block;font-family:Manrope,sans-serif;font-size:14px;font-weight:800}
+.app-meta span{display:block;color:var(--muted);font-size:11px;margin-top:4px}
+.demo-tag{font-size:9px;letter-spacing:1px;color:#e4b7ca;background:rgba(217,160,184,.09);border:1px solid var(--line);border-radius:30px;padding:7px 9px;white-space:nowrap}
+.download-btn{height:53px;border-radius:12px;background:var(--pink);color:#281923;display:flex;align-items:center;justify-content:center;gap:10px;font-size:13px;font-weight:800;letter-spacing:.1px;transition:background .25s,transform .25s,box-shadow .25s}
+.download-btn svg{width:18px;height:18px}
+.download-btn:hover{background:var(--pink2);transform:translateY(-2px);box-shadow:0 10px 28px rgba(217,160,184,.17)}
+.download-btn:active{transform:scale(.985)}
+.download-foot{display:flex;justify-content:center;gap:17px;margin-top:13px;color:#9e9099;font-size:10px}
+.download-foot span{display:flex;align-items:center;gap:5px}
+.small-note{margin-top:18px;color:#897c85;font-size:10px;line-height:1.7}
+.visual{min-height:480px;position:relative;display:grid;place-items:center;animation:rise 1s .12s cubic-bezier(.2,.7,.2,1) both}
+.artboard{width:min(100%,460px);aspect-ratio: .91;position:relative;border:1px solid rgba(235,190,210,.16);border-radius:30px;background:linear-gradient(145deg,#241b25,#171319 72%);box-shadow:0 35px 100px rgba(0,0,0,.38);overflow:hidden;transform:rotate(1.5deg)}
+.artboard:before{content:"";position:absolute;inset:12px;border:1px solid rgba(235,190,210,.08);border-radius:22px;pointer-events:none}
+.board-top{height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 27px;border-bottom:1px solid rgba(255,255,255,.06);color:#a99aa4;font-size:10px;letter-spacing:1.3px;text-transform:uppercase}
+.window-dots{display:flex;gap:5px}.window-dots i{width:6px;height:6px;border-radius:50%;background:#755669}
+.canvas{position:absolute;inset:55px 0 65px;display:grid;place-items:center}
+.canvas svg{width:88%;height:88%;overflow:visible}
+.board-bottom{position:absolute;bottom:0;left:0;right:0;height:65px;border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;gap:13px}
+.tool{width:31px;height:31px;border-radius:10px;display:grid;place-items:center;color:#a998a4;background:rgba(255,255,255,.035)}
+.tool.active{background:rgba(217,160,184,.15);color:var(--pink2);outline:1px solid rgba(217,160,184,.22)}
+.tool svg{width:15px;height:15px}
+.float-chip{position:absolute;z-index:2;background:#29202a;border:1px solid var(--line);box-shadow:0 12px 35px rgba(0,0,0,.3);border-radius:14px;padding:11px 14px;color:#e8dbe2;font-size:10px;display:flex;align-items:center;gap:9px;backdrop-filter:blur(12px)}
+.float-chip svg{width:17px;height:17px;color:var(--pink)}
+.chip-one{top:74px;left:-15px;animation:drift 5s ease-in-out infinite}
+.chip-two{bottom:83px;right:-18px;animation:drift 5.5s ease-in-out infinite reverse}
+.spark{position:absolute;color:#d9a0b8;opacity:.8;font-size:20px}
+.spark.s1{top:30px;right:35px}.spark.s2{bottom:30px;left:22px;font-size:14px}
+footer{width:min(1120px,calc(100% - 48px));margin:auto;border-top:1px solid rgba(255,255,255,.06);padding:21px 0 25px;display:flex;justify-content:space-between;align-items:center;color:#82757e;font-size:10px}
+footer strong{color:#b990a4;font-weight:600}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes drift{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@media(max-width:820px){main{grid-template-columns:1fr;gap:42px;padding-top:42px}.copy{text-align:center}.intro,.download-panel{margin-left:auto;margin-right:auto}.visual{min-height:390px;grid-row:2}.artboard{max-width:390px}.chip-one{left:0}.chip-two{right:0}}
+@media(max-width:480px){.site-header,main,footer{width:calc(100% - 36px)}.site-header{height:72px}.brand{font-size:15px}.header-note{font-size:9px;letter-spacing:1px}main{padding:36px 0 45px;gap:35px}h1{font-size:53px}.intro{font-size:13px}.download-panel{padding:15px}.visual{min-height:335px}.artboard{border-radius:23px}.board-top{height:46px;padding:0 20px}.canvas{inset:47px 0 56px}.board-bottom{height:56px}.chip-one{top:55px}.chip-two{bottom:54px}.float-chip{font-size:9px;padding:9px 10px}footer{font-size:9px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="#" aria-label="Teddy Draw home">
+    <span class="brand-mark">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m4 20 4.5-1 10.8-10.8a2.1 2.1 0 0 0-3-3L5.5 16 4 20Z"/><path d="m14.8 6.7 3 3"/></svg>
+    </span>
+    <span>Teddy Draw</span>
+  </a>
+  <div class="header-note">Early access demo</div>
+</header>
+
+<main>
+  <section class="copy">
+    <div class="kicker">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Z"/><path d="m19 16 .8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16Z"/></svg>
+      YOUR LITTLE CREATIVE SPACE
+    </div>
+    <h1>Make room<br>for <em>imagination.</em></h1>
+    <p class="intro">A cozy place to sketch, doodle and bring your ideas to life. Pick up your digital pencil and let creativity take the lead.</p>
+
+    <div class="download-panel">
+      <div class="app-row">
+        <div class="app-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m4 20 4.5-1 10.8-10.8a2.1 2.1 0 0 0-3-3L5.5 16 4 20Z"/><path d="m14.8 6.7 3 3"/></svg>
+        </div>
+        <div class="app-meta"><strong>Teddy Draw</strong><span>Drawing app · Android</span></div>
+        <span class="demo-tag">DEMO BUILD</span>
+      </div>
+      <a class="download-btn" href="./game.apk" download="Teddy-Draw.apk">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></svg>
+        Download for Him🥺
+      </a>
+      <div class="download-foot"><span>✦ Android</span><span>✦ Free demo</span><span>✦ APK</span></div>
+    </div>
+    <p class="small-note">A little space to create something that’s yours.</p>
+  </section>
+
+  <section class="visual" aria-label="Illustration of a digital drawing canvas">
+    <div class="float-chip chip-one">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m4 20 4.5-1L19 8.5 15.5 5 5 15.5 4 20Z"/><path d="m13.8 6.7 3.5 3.5"/></svg>
+      Your next idea starts here
+    </div>
+    <div class="artboard">
+      <div class="board-top"><span>Untitled canvas</span><span class="window-dots"><i></i><i></i><i></i></span></div>
+      <div class="canvas">
+        <svg viewBox="0 0 400 390" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="flower" x1="90" y1="80" x2="300" y2="310" gradientUnits="userSpaceOnUse"><stop stop-color="#E9B9CE"/><stop offset="1" stop-color="#A96F8D"/></linearGradient>
+            <linearGradient id="leaf" x1="100" y1="180" x2="300" y2="300" gradientUnits="userSpaceOnUse"><stop stop-color="#A8A98D"/><stop offset="1" stop-color="#687765"/></linearGradient>
+          </defs>
+          <path d="M201 320C196 276 202 240 198 204" stroke="#9B9B7F" stroke-width="5" stroke-linecap="round"/>
+          <path d="M198 265C153 226 127 246 123 278C154 292 178 287 198 265Z" fill="url(#leaf)" opacity=".95"/>
+          <path d="M201 237C236 198 267 210 270 242C246 259 221 257 201 237Z" fill="url(#leaf)" opacity=".95"/>
+          <path d="M197 285C176 268 153 265 139 272" stroke="#D2C7A9" stroke-width="2" stroke-linecap="round" opacity=".55"/>
+          <path d="M205 248C227 229 247 225 260 230" stroke="#D2C7A9" stroke-width="2" stroke-linecap="round" opacity=".55"/>
+          <g transform="translate(198 128)">
+            <ellipse cx="0" cy="-43" rx="23" ry="43" fill="url(#flower)"/>
+            <ellipse cx="0" cy="-43" rx="23" ry="43" fill="url(#flower)" transform="rotate(45)"/>
+            <ellipse cx="0" cy="-43" rx="23" ry="43" fill="url(#flower)" transform="rotate(90)"/>
+            <ellipse cx="0" cy="-43" rx="23" ry="43" fill="url(#flower)" transform="rotate(135)"/>
+            <circle r="24" fill="#D9B77E"/>
+            <circle r="15" fill="#E9D3A7"/>
+            <circle cx="-5" cy="-3" r="2" fill="#8B6B5A"/><circle cx="5" cy="-3" r="2" fill="#8B6B5A"/>
+            <path d="M-4 5Q0 9 4 5" stroke="#8B6B5A" stroke-width="1.6" stroke-linecap="round"/>
+          </g>
+          <path d="M87 91C101 79 112 83 116 96C103 107 91 104 87 91Z" fill="#A8A98D" opacity=".8"/>
+          <path d="M305 145C320 132 332 138 333 152C319 162 308 157 305 145Z" fill="#A8A98D" opacity=".8"/>
+          <path d="M93 93 111 96M308 147 327 151" stroke="#D2C7A9" stroke-width="1.5" opacity=".6"/>
+          <path d="M113 327C150 315 245 315 283 327" stroke="#B98BA1" stroke-width="1.5" stroke-linecap="round" opacity=".35"/>
+          <path d="M83 170l5-10 5 10 10 5-10 5-5 10-5-10-10-5 10-5Z" fill="#D9A0B8" opacity=".75"/>
+          <path d="m301 67 4-8 4 8 8 4-8 4-4 8-4-8-8-4 8-4Z" fill="#D9A0B8" opacity=".65"/>
+          <circle cx="290" cy="285" r="3" fill="#D9A0B8"/><circle cx="108" cy="226" r="2.5" fill="#D9A0B8"/>
+        </svg>
+      </div>
+      <div class="board-bottom">
+        <span class="tool active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m4 20 4.5-1L19 8.5 15.5 5 5 15.5 4 20Z"/></svg></span>
+        <span class="tool"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v14H4z"/><path d="m4 15 5-5 4 4 3-3 4 4"/></svg></span>
+        <span class="tool"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><path d="M12 4v16M4 12h16"/></svg></span>
+        <span class="tool"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20 20 4M7 4l13 13M4 7l13 13"/></svg></span>
+        <span class="tool"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v18M3 12h18"/></svg></span>
+      </div>
+    </div>
+    <div class="float-chip chip-two">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="8"/></svg>
+      Sketch · Create · Repeat
+    </div>
+    <span class="spark s1">✳</span><span class="spark s2">✦</span>
+  </section>
+</main>
+
+<footer>
+  <span>© 2026 <strong>Teddy Draw</strong></span>
+  <span>Made for curious minds.</span>
+</footer>
+</body>
+</html>
